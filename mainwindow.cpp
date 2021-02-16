@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->comboBox->addItems({"Learning", "Recognition"});
     ui->comboBox_2->addItems({"K", "U", "H", "T"});
-    trainingSet.open("trainingSet.txt");
+    trainingSet.open("tmp.txt");
     net = std::make_unique<NeuralNetwork>(4,64);
 }
 
@@ -45,6 +45,8 @@ void MainWindow::on_pushButton_2_clicked()
 
     trainingSet.close();
     traines.clear();
+    std::filesystem::rename("tmp.txt","trainingSet.txt");
+
 }
 
 void MainWindow::on_comboBox_currentIndexChanged(const QString &arg1)
@@ -78,7 +80,9 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    net->train("trainingSet.txt",1000);
+    for(size_t i = 0; i < 20; i++)
+        net->train("trainingSet.txt",15000);
+    net->saveErrors();
     ui->textBrowser->append("Trained!\n");
 }
 

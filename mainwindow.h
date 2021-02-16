@@ -5,6 +5,7 @@
 #include <string>
 #include "paintingwidget.h"
 #include "neuralnetwork.h"
+#include <filesystem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
